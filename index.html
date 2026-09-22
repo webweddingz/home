@@ -1,273 +1,307 @@
-<!doctype html>
+from PIL import Image
+from pathlib import Path
+import shutil
+
+src = Path("/mnt/data/75d077e6-6b86-465d-b805-41d8987cb45c.png")
+out_dir = Path("/mnt/data/weddings_site")
+out_dir.mkdir(exist_ok=True)
+
+# Create a clean crop around the actual "Web Weddings" logo artwork.
+img = Image.open(src).convert("RGB")
+crop = img.crop((180, 185, 1940, 570))
+logo_path = out_dir / "weddings-logo.png"
+crop.save(logo_path, quality=95)
+
+# The user's supplied image is also kept as the original branding artwork.
+shutil.copy2(src, out_dir / "weddings-brand-original.png")
+
+# Build a revised version of the supplied HTML.
+html = r'''<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="description" content="Web.Weddingz — beautiful, personalised wedding websites and digital invitations."/>
-<title>Web.Weddingz — Your love story. Your invitation. Your way.</title>
-<style>
-:root{
-  --ink:#111111;
-  --ivory:#F7F3ED;
-  --terra:#C87962;
-  --champ:#D8C4A6;
-  --sage:#9BA690;
-  --soft:#EDE8E1;
-  --line:#E4DFD7;
-  --muted:#615C56;
-  --white:#FFFFFF;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;color:var(--ink);background:var(--ivory);line-height:1.55}
-a{color:inherit;text-decoration:none}
-.container{width:min(1160px,92%);margin:auto}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="WEDDINGS — wedding planning packages, templates, customer journey, FAQs, and WhatsApp bookings." />
+  <title>WEDDINGS | Wedding Packages & Templates</title>
 
-header{position:sticky;top:0;background:rgba(247,243,237,.95);backdrop-filter:blur(12px);z-index:10;border-bottom:1px solid #ded8cf}
-nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{font-weight:800;letter-spacing:1.5px;font-size:18px;white-space:nowrap}
-.navlinks{display:flex;gap:26px;font-size:14px}
-.navlinks a{transition:opacity .2s ease}.navlinks a:hover{opacity:.55}
-.btn{display:inline-block;padding:13px 20px;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;font-size:14px;transition:transform .2s ease,opacity .2s ease}
-.btn:hover{transform:translateY(-1px);opacity:.92}.btn.alt{background:var(--terra)}
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --card:rgba(255,255,255,.06);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --primary:#d6a84f;
+      --primary2:#f4d58a;
+      --good:#2ee59d;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:18px;
+      --radius2:26px;
+      --max:1100px;
+      --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    }
 
-.hero{padding:84px 0 62px;background:radial-gradient(circle at 85% 20%,rgba(200,121,98,.22),transparent 32%),linear-gradient(135deg,var(--ivory),#fff)}
-.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
-.kicker{text-transform:uppercase;letter-spacing:4px;font-size:12px;color:var(--terra);font-weight:800}
-h1{font:700 clamp(52px,7vw,92px)/.95 Georgia,serif;margin:16px 0}
-.hero p{font-size:19px;max-width:640px;color:#47433f}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.phone{background:#141414;border-radius:36px;padding:12px;box-shadow:0 26px 70px rgba(17,17,17,.22);width:min(360px,100%);margin:auto}
-.screen{background:#fff;border-radius:26px;overflow:hidden;min-height:520px}
-.screen-top{height:245px;background:linear-gradient(135deg,#ead9cc,#b96d59);display:flex;align-items:end;padding:22px;color:#fff}
-.screen-top strong{font:700 36px Georgia,serif}.screen-body{padding:24px}
-.pill{display:inline-block;background:var(--soft);padding:7px 11px;border-radius:999px;font-size:12px;margin:3px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;font-family:var(--font);background:
+      radial-gradient(1200px 600px at 15% 10%,rgba(214,168,79,.15),transparent 55%),
+      radial-gradient(900px 500px at 85% 20%,rgba(244,213,138,.10),transparent 50%),
+      radial-gradient(700px 420px at 60% 95%,rgba(46,229,157,.08),transparent 55%),var(--bg);
+      color:var(--text);line-height:1.55
+    }
+    .container{max-width:var(--max);margin:0 auto;padding:0 18px}
+    .section{padding:70px 0}
+    .grid{display:grid;gap:18px}
 
-.section{padding:84px 0}.section.alt{background:#fff}.section h2{font:700 46px/1 Georgia,serif;margin:0 0 14px}.lead{max-width:720px;color:var(--muted);font-size:18px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:35px}.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px}
-.card h3{font:700 23px Georgia,serif;margin:0 0 9px}.small{font-size:13px;color:#6a655f}ul{padding-left:20px;margin-bottom:0}.card li{margin-bottom:7px}
+    .topbar{
+      position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+      background:rgba(11,15,25,.72);border-bottom:1px solid rgba(255,255,255,.10)
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:20px}
+    .brand{display:flex;align-items:center;text-decoration:none;color:var(--text);min-width:0}
+    .logo{
+      width:170px;height:54px;overflow:hidden;border-radius:10px;
+      border:1px solid rgba(214,168,79,.28);box-shadow:0 10px 30px rgba(214,168,79,.10);
+      background:#ead8b8;flex:0 0 auto
+    }
+    .logo img{width:100%;height:100%;display:block;object-fit:cover;object-position:center}
+    .brand-copy{display:none}
+    .navlinks{display:flex;align-items:center;gap:8px}
+    .navlinks a{
+      text-decoration:none;color:var(--muted);font-weight:650;font-size:14px;
+      padding:10px 12px;border-radius:999px;border:1px solid transparent
+    }
+    .navlinks a:hover{color:var(--text);border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.06)}
+    .nav-cta{display:flex;align-items:center;gap:10px}
 
-.templates{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
-.template{border-radius:20px;overflow:hidden;background:#fff;border:1px solid #e7e1d8;transition:transform .2s ease,box-shadow .2s ease}
-.template:hover{transform:translateY(-3px);box-shadow:0 18px 45px rgba(17,17,17,.09)}
-.template-art{height:250px;padding:22px;display:flex;align-items:end;position:relative;overflow:hidden}
-.template-art:before,.template-art:after{content:"";position:absolute;border-radius:999px;opacity:.28;filter:blur(1px)}
-.template-art:before{width:130px;height:130px;right:-30px;top:-25px;border:1px solid currentColor}.template-art:after{width:70px;height:70px;left:22px;top:22px;background:rgba(255,255,255,.25)}
-.template-art.one{background:linear-gradient(135deg,#1f1d1b,#77675f);color:#fff}.template-art.two{background:linear-gradient(135deg,#fbf4e8,#d9c2a2)}
-.template-art.three{background:linear-gradient(135deg,#f3e4df,#ba755f)}.template-art.four{background:linear-gradient(135deg,#dfe3dc,#89977f)}
-.template-art.five{background:linear-gradient(135deg,#ede9ee,#6f5d73);color:#fff}.template-art.six{background:linear-gradient(135deg,#ece5d8,#3f5448);color:#fff}
-.template-art.seven{background:linear-gradient(135deg,#f7f7f4,#b6b7ae)}.template-art.eight{background:linear-gradient(135deg,#f4e6d3,#8e5d3c)}
-.template-art.nine{background:linear-gradient(135deg,#f1e3e4,#9d4b62)}.template-art.ten{background:linear-gradient(135deg,#e8e1d4,#6f6252)}
-.template-art.eleven{background:linear-gradient(135deg,#e7efe8,#6f8f76)}.template-art.twelve{background:linear-gradient(135deg,#f0e5d7,#27231f);color:#fff}
-.template-art .art-label{position:relative;z-index:1}.template-art .eyebrow{letter-spacing:4px;font-size:11px}.template-art .name{font:700 34px Georgia,serif}
-.template-copy{padding:20px}.template-copy strong{font:700 24px Georgia,serif}.template-copy p{margin-bottom:0}
-.collection-note{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-top:24px;padding:18px 20px;border:1px solid var(--line);border-radius:18px;background:#faf8f4;font-size:14px;color:#56514b}
+    .btn{
+      border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:var(--text);
+      padding:11px 14px;border-radius:999px;text-decoration:none;font-weight:750;font-size:14px;
+      display:inline-flex;align-items:center;gap:10px;transition:transform .15s ease,background .2s ease,border-color .2s ease;
+      user-select:none;white-space:nowrap
+    }
+    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.22)}
+    .btn-primary{
+      border-color:rgba(214,168,79,.48);
+      background:linear-gradient(135deg,#b9862f,#e5c36f);
+      color:#17120a;box-shadow:0 18px 50px rgba(214,168,79,.16)
+    }
+    .btn-primary:hover{background:linear-gradient(135deg,#c99636,#f0d27f)}
+    .btn svg{width:18px;height:18px}
+    .hamburger{
+      display:none;width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);color:var(--text);cursor:pointer
+    }
+    .hamburger svg{width:18px;height:18px}
 
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:34px}.step{padding:22px;border-top:3px solid var(--terra);background:var(--ivory);border-radius:0 0 16px 16px}
-.num{font-size:13px;letter-spacing:2px;color:var(--terra);font-weight:800}
-.testimonial{background:var(--ink);color:white;border-radius:28px;padding:40px;margin-top:36px}.testimonial p{font:italic 28px/1.25 Georgia,serif;margin:0 0 18px}.testimonial span{color:#d7d0c6}
+    .hero{padding:54px 0 24px;overflow:hidden;position:relative}
+    .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center}
+    .kicker{
+      display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(214,168,79,.28);background:rgba(214,168,79,.07);color:var(--muted);
+      font-weight:700;font-size:13px;width:fit-content
+    }
+    .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#d6a84f,#f4d58a);box-shadow:0 0 0 4px rgba(214,168,79,.14)}
+    .hero h1{margin:14px 0 10px;font-size:clamp(34px,4vw,54px);line-height:1.05;letter-spacing:-.8px}
+    .gradient{
+      background:linear-gradient(135deg,#fff,rgba(255,255,255,.78) 30%,#e1b85f 70%,#fff0bc);
+      -webkit-background-clip:text;background-clip:text;color:transparent
+    }
+    .hero p{margin:0;color:var(--muted);font-size:16px;max-width:55ch}
+    .hero-actions{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+    .hero-stats{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+    .stat{padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);min-width:170px}
+    .stat strong{display:block;font-size:18px}.stat span{color:var(--muted);font-size:13px;font-weight:650}
 
-.package-intro{display:flex;align-items:end;justify-content:space-between;gap:30px}.package-note{font-size:13px;color:#6a655f;max-width:300px;text-align:right}
-.package-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:35px}.package-grid .card{min-height:100%}
-.package-grid .featured{border:2px solid var(--terra)}.tag{display:inline-block;color:var(--terra);font-size:11px;font-weight:900;letter-spacing:2px;margin-bottom:7px;text-transform:uppercase}
+    .hero-card{border-radius:var(--radius2);border:1px solid rgba(255,255,255,.14);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.04));box-shadow:var(--shadow);padding:18px;position:relative}
+    .hero-card:before{content:"";position:absolute;inset:-1px;border-radius:var(--radius2);background:linear-gradient(135deg,rgba(214,168,79,.22),rgba(255,255,255,.08),rgba(46,229,157,.08));z-index:-1;filter:blur(12px);opacity:.9}
+    .preview{border-radius:22px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.18);overflow:hidden}
+    .preview-top{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.05)}
+    .preview-top .pill{padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:var(--muted);font-weight:700;font-size:13px;display:flex;align-items:center;gap:8px}
+    .spark{width:12px;height:12px;border-radius:4px;background:linear-gradient(135deg,#d6a84f,#f4d58a);box-shadow:0 0 0 4px rgba(214,168,79,.12)}
+    .preview-body{padding:14px;display:grid;gap:12px}
+    .row{display:flex;gap:10px;align-items:flex-start}.mini{width:40px;height:40px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);display:grid;place-items:center;flex:0 0 auto}
+    .mini svg{width:18px;height:18px;opacity:.95}.row h3{margin:0;font-size:14px}.row p{margin:4px 0 0;color:var(--muted);font-size:13px}
+    .progress{padding:14px;border-radius:18px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05)}
+    .progress .label{display:flex;justify-content:space-between;color:var(--muted);font-weight:700;font-size:13px}
+    .bar{margin-top:10px;height:10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);overflow:hidden}
+    .bar>i{display:block;height:100%;width:68%;background:linear-gradient(90deg,#b9862f,#f0d27f);border-radius:999px}
 
-.faq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:35px}.faq-grid .card{background:#fff}
+    .sec-head{text-align:center;margin-bottom:22px}.sec-head h2{margin:0;font-size:clamp(22px,2.6vw,34px);letter-spacing:-.5px}.sec-head p{margin:10px auto 0;color:var(--muted);max-width:65ch}
+    .card{border-radius:var(--radius);border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);padding:18px}
+    .card:hover{border-color:rgba(214,168,79,.28);background:rgba(255,255,255,.07)}
+    .packages{display:grid;grid-template-columns:repeat(3,1fr)}
+    .price{font-size:34px;margin:10px 0 0;letter-spacing:-1px;font-weight:900}.price span{font-size:14px;color:var(--muted);font-weight:800}
+    .tag{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid rgba(214,168,79,.24);background:rgba(214,168,79,.07);font-size:13px;color:var(--muted);font-weight:750}
+    .list{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:10px}.list li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-weight:650;font-size:14px}
+    .check{width:18px;height:18px;border-radius:7px;background:rgba(46,229,157,.18);border:1px solid rgba(46,229,157,.35);display:grid;place-items:center;flex:0 0 auto;margin-top:1px}.check svg{width:12px;height:12px;color:var(--good)}
+    .packages .card .btn{margin-top:14px;width:100%;justify-content:center}
 
-.cta{padding:80px 0;background:var(--terra);color:white;text-align:center}.cta h2{font:700 54px/1 Georgia,serif;margin:0 auto 16px;max-width:800px}.cta p{max-width:640px;margin:0 auto 28px;font-size:18px}.cta .btn{background:white;color:var(--ink)}
-footer{padding:40px 0;background:var(--ink);color:#fff}footer .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}footer .muted{color:#bcb5ad;font-size:13px}
+    .templates-grid{grid-template-columns:repeat(3,1fr)}
+    .thumb{height:170px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(214,168,79,.20),rgba(255,255,255,.05)),rgba(255,255,255,.04);position:relative;overflow:hidden}
+    .thumb:after{content:"";position:absolute;inset:-60px;background:conic-gradient(from 180deg,rgba(255,255,255,.18),transparent 35%,rgba(255,255,255,.10));opacity:.55;transform:rotate(10deg)}
+    .thumb .badge{position:absolute;top:12px;left:12px;padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(11,15,25,.45);color:var(--text);font-weight:850;font-size:13px;z-index:2}
+    .thumb .dots{position:absolute;bottom:12px;right:12px;z-index:2;display:flex;gap:8px}.dots i{width:10px;height:10px;border-radius:4px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);display:block}
+    .templates-grid .card p{color:var(--muted);margin:10px 0 0;font-weight:650}
+    .journey{grid-template-columns:repeat(4,1fr);align-items:stretch}
+    .step .num{width:46px;height:46px;border-radius:18px;display:grid;place-items:center;font-weight:950;border:1px solid rgba(214,168,79,.25);background:rgba(214,168,79,.08);margin-bottom:12px}
+    .step h3{margin:0 0 6px;font-size:16px}.step p{margin:0;color:var(--muted);font-weight:650}
+    .faq{max-width:860px;margin:0 auto}.faq-item{border-radius:16px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);margin-bottom:12px;overflow:hidden}
+    .faq-q{width:100%;text-align:left;padding:16px;background:transparent;border:0;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;font-weight:850;font-size:15px}
+    .faq-q .icon{width:36px;height:36px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);display:grid;place-items:center;flex:0 0 auto}
+    .faq-a{padding:0 16px 16px;color:var(--muted);font-weight:650;display:none}.faq-a.open{display:block}.rotate{transform:rotate(45deg);transition:transform .2s ease}
+    .cta-band{padding:24px;border-radius:var(--radius2);border:1px solid rgba(214,168,79,.25);background:linear-gradient(135deg,rgba(214,168,79,.14),rgba(255,255,255,.04));box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    .cta-band h3{margin:0;font-size:20px}.cta-band p{margin:6px 0 0;color:var(--muted);font-weight:650}.cta-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .wa-fab{position:fixed;right:16px;bottom:16px;z-index:80;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+    .wa-hint{padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(11,15,25,.65);color:var(--muted);font-weight:750;font-size:13px;max-width:240px;display:none}
+    .wa-btn{width:56px;height:56px;border-radius:20px;border:1px solid rgba(46,229,157,.35);background:linear-gradient(135deg,rgba(46,229,157,.95),rgba(37,211,196,.75));box-shadow:0 22px 60px rgba(46,229,157,.18);display:grid;place-items:center;cursor:pointer;text-decoration:none;transition:transform .15s ease}
+    .wa-btn:hover{transform:translateY(-2px)}.wa-btn svg{width:26px;height:26px;color:#05231c}
 
-@media(max-width:950px){.hero-grid,.grid3,.templates,.steps,.package-grid,.faq-grid{grid-template-columns:1fr 1fr}.hero-grid{align-items:start}.package-intro{display:block}.package-note{text-align:left;margin-top:10px}}
-@media(max-width:700px){.hero-grid,.grid3,.templates,.steps,.package-grid,.faq-grid{grid-template-columns:1fr}.navlinks{display:none}h1{font-size:58px}.section{padding:68px 0}.section h2{font-size:40px}.hero{padding-top:58px}.collection-note{display:block}.phone{margin-top:10px}.cta h2{font-size:42px}}
-</style>
+    @media(max-width:980px){
+      .hero .wrap{grid-template-columns:1fr}.packages,.templates-grid,.journey{grid-template-columns:1fr}
+      .navlinks{display:none}.hamburger{display:block}.logo{width:150px;height:48px}
+    }
+    .mobile-menu{display:none;border-top:1px solid rgba(255,255,255,.10);padding:10px 0 16px}
+    .mobile-menu.open{display:block}.mobile-menu a{display:block;padding:12px 14px;color:var(--muted);text-decoration:none;font-weight:750;border-radius:14px}
+    .mobile-menu a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+  </style>
 </head>
+
 <body>
-<header>
+<header class="topbar">
   <div class="container">
-    <nav>
-      <div class="brand">Web.Weddingz</div>
-      <div class="navlinks">
-        <a href="#designs">Designs</a>
-        <a href="#packages">Packages</a>
-        <a href="#how">How it works</a>
-        <a href="#faq">FAQ</a>
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="WEDDINGS Home">
+        <div class="logo">
+          <img src="weddings-logo.png" alt="Weddings — Your love story. Your invitation. Your way." />
+        </div>
+      </a>
+
+      <nav class="navlinks" aria-label="Primary navigation">
+        <a href="#packages">Packages</a><a href="#templates">Templates</a><a href="#journey">Customer Journey</a><a href="#faqs">FAQs</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a class="btn" href="#faqs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18h.01"></path><path d="M9 9a3 3 0 1 1 5.2 2c-.9.9-1.2 1.1-1.2 2v1"></path><path d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0z"></path></svg>
+          Learn more
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>
+        </button>
       </div>
-      <a class="btn" href="#start">Create yours</a>
-    </nav>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#packages">Packages</a><a href="#templates">Templates</a><a href="#journey">Customer Journey</a><a href="#faqs">FAQs</a>
+      <a href="#book" style="border:1px solid rgba(255,255,255,.14);margin:8px 14px 0;padding:12px 14px;background:rgba(255,255,255,.06)">Book via WhatsApp</a>
+    </div>
   </div>
 </header>
 
+<main id="top">
 <section class="hero">
-  <div class="container hero-grid">
-    <div>
-      <div class="kicker">Digital wedding experiences</div>
-      <h1>Your love story. Your invitation. Your way.</h1>
-      <p>Beautiful, personalised wedding websites and digital invitations that make it effortless to invite, inform and manage your guests all in one elegant, mobile-first experience.</p>
-      <div class="hero-actions">
-        <a class="btn" href="#packages">View packages</a>
-        <a class="btn alt" href="#designs">Explore designs</a>
+  <div class="container">
+    <div class="wrap">
+      <div>
+        <div class="kicker"><span class="dot"></span><span>Built for modern wedding planning & matching invites ✨</span></div>
+        <h1>Your dream <span class="gradient">wedding</span>, packaged beautifully.</h1>
+        <p>Choose a curated wedding package, explore template collections, and follow a simple customer journey—then book in minutes on WhatsApp. 💍</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#book">WhatsApp booking</a>
+          <a class="btn" href="#packages">View packages</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong>3–14 days</strong><span>Typical turnaround for templates</span></div>
+          <div class="stat"><strong>Curated</strong><span>Templates + timeline planning</span></div>
+          <div class="stat"><strong>Human support</strong><span>Reply on WhatsApp within hours</span></div>
+        </div>
       </div>
-    </div>
-    <div class="phone">
-      <div class="screen">
-        <div class="screen-top"><strong>Nqobile<br>&amp; Sebina</strong></div>
-        <div class="screen-body">
-          <div class="pill">27 March 2026</div>
-          <div class="pill">Johannesburg</div>
-          <h3 style="font:700 30px Georgia,serif;margin:16px 0 5px">We’re getting married.</h3>
-          <p class="small">Everything your guests need, in one beautiful link.</p>
-          <a class="btn" style="margin-top:10px;width:100%;text-align:center" href="#start">RSVP</a>
+
+      <div class="hero-card" aria-label="Wedding planning preview">
+        <div class="preview">
+          <div class="preview-top"><div class="pill"><span class="spark"></span> Wedding Timeline</div><div class="pill">✨ Personalized</div></div>
+          <div class="preview-body">
+            <div class="row"><div class="mini">✦</div><div><h3>Pick your package</h3><p>Choose budget + vibe (luxury, modern, classic).</p></div></div>
+            <div class="row"><div class="mini">▤</div><div><h3>Select template collection</h3><p>Save your theme across invite, signage & itinerary.</p></div></div>
+            <div class="progress"><div class="label"><span>Planning readiness</span><span>68%</span></div><div class="bar" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"><i></i></div><div style="margin-top:10px;color:var(--muted);font-weight:700;font-size:13px">Next: confirm date + guest count ✅</div></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="kicker">The Web.Weddingz difference</div>
-    <h2>Not just an invitation.</h2>
-    <p class="lead">We turn your wedding details into a guest experience that feels as personal as the day itself — designed to be shared easily and opened beautifully on any phone.</p>
-    <div class="grid3">
-      <div class="card">
-        <h3>Beautiful</h3>
-        <p>Modern layouts, elegant typography, motion-ready invites and designs that feel made for your wedding.</p>
-      </div>
-      <div class="card">
-        <h3>Simple</h3>
-        <p>One link. One guest journey. RSVP, venue, timeline, dress code, gifts and FAQs without the back-and-forth.</p>
-      </div>
-      <div class="card">
-        <h3>Personal</h3>
-        <p>Your names, your story, your photos and your guest experience — shaped around the way you want your wedding to feel.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section alt" id="designs">
-  <div class="container">
-    <div class="kicker">Signature collection</div>
-    <h2>Choose your look. Make it yours.</h2>
-    <p class="lead">Start with a style direction, then personalise the colours, wording, imagery, typography and details until it feels unmistakably yours.</p>
-
-    <div class="templates">
-      <div class="template"><div class="template-art one"><div class="art-label"><div class="eyebrow">THE</div><div class="name">Editorial</div></div></div><div class="template-copy"><strong>Editorial Noir</strong><p class="small">Black, ivory, statement type, modern photography.</p></div></div>
-      <div class="template"><div class="template-art two"><div class="art-label"><div class="eyebrow">THE</div><div class="name">Classic</div></div></div><div class="template-copy"><strong>Champagne Classic</strong><p class="small">Soft neutrals, romantic serif type, understated luxury.</p></div></div>
-      <div class="template"><div class="template-art three"><div class="art-label"><div class="eyebrow">THE</div><div class="name">Romance</div></div></div><div class="template-copy"><strong>Terracotta Romance</strong><p class="small">Warm clay tones, soft curves, intimate photography.</p></div></div>
-      <div class="template"><div class="template-art four"><div class="art-label"><div class="eyebrow">THE</div><div class="name">Garden</div></div></div><div class="template-copy"><strong>Garden Modern</strong><p class="small">Sage, cream and botanical balance for outdoor weddings.</p></div></div>
-      <div class="template"><div class="template-art five"><div class="art-label"><div class="eyebrow">THE</div><div class="name">After Dark</div></div></div><div class="template-copy"><strong>After Dark</strong><p class="small">Moody luxury for evening celebrations and city venues.</p></div></div>
-      <div class="template"><div class="template-art six"><div class="art-label"><div class="eyebrow">THE</div><div class="name">Afro Modern</div></div></div><div class="template-copy"><strong>Afro Modern Luxe</strong><p class="small">Contemporary African texture, bold restraint and warmth.</p></div></div>
-      <div class="template"><div class="template-art seven"><div class="art-label"><div class="eyebrow">THE</div><div class="name">Minimal</div></div></div><div class="template-copy"><strong>Minimalist Arch</strong><p class="small">Clean space, soft neutrals and a gallery-inspired finish.</p></div></div>
-      <div class="template"><div class="template-art eight"><div class="art-label"><div class="eyebrow">THE</div><div class="name">Earth</div></div></div><div class="template-copy"><strong>Earth &amp; Texture</strong><p class="small">Natural tones, tactile details and relaxed contemporary styling.</p></div></div>
-      <div class="template"><div class="template-art nine"><div class="art-label"><div class="eyebrow">THE</div><div class="name">Statement</div></div></div><div class="template-copy"><strong>Statement Colour</strong><p class="small">Confident colour, editorial contrast and a bold personality.</p></div></div>
-      <div class="template"><div class="template-art ten"><div class="art-label"><div class="eyebrow">THE</div><div class="name">Art Deco</div></div></div><div class="template-copy"><strong>Art Deco Evening</strong><p class="small">Geometric accents, rich contrast and celebration-after-dark energy.</p></div></div>
-      <div class="template"><div class="template-art eleven"><div class="art-label"><div class="eyebrow">THE</div><div class="name">Botanical</div></div></div><div class="template-copy"><strong>Botanical Story</strong><p class="small">Organic forms, soft greens and a naturally romantic mood.</p></div></div>
-      <div class="template"><div class="template-art twelve"><div class="art-label"><div class="eyebrow">THE</div><div class="name">Modern Black</div></div></div><div class="template-copy"><strong>Modern Black Tie</strong><p class="small">High-contrast type, cinematic imagery and modern formal elegance.</p></div></div>
-    </div>
-
-    <div class="collection-note">
-      <span></span>
-      <a class="btn" href="#start">Request a custom look</a>
-    </div>
-  </div>
-</section>
-
 <section class="section" id="packages">
-  <div class="container">
-    <div class="package-intro">
-      <div>
-        <div class="kicker">Packages</div>
-        <h2>Simple packages. Clear value.</h2>
-        <p class="lead">Choose the experience that fits your wedding. Add extra creative or guest features only when you need them.</p>
-      </div>
-    </div>
-
-    <div class="package-grid">
-      <div class="card">
-        <h3>Digital Invite</h3>
-        <p>For couples who mainly need a beautiful invitation link.</p>
-        <ul><li>Custom digital invitation</li><li>Share-ready invitation link</li><li>Basic RSVP form</li><li>1 revision round</li></ul>
-      </div>
-
-      <div class="card featured">
-        <div class="tag">Most popular</div>
-        <h3>The Wedding Website</h3>
-        <p>Your information hub and RSVP destination.</p>
-        <ul><li>Personalised mobile website</li><li>RSVP + guest details</li><li>Story, schedule, venue &amp; dress code</li><li>Photo gallery</li><li>12 months hosting</li></ul>
-      </div>
-
-      <div class="card">
-        <h3>The Love Story</h3>
-        <p>The invitation + website experience together.</p>
-        <ul><li>Everything in Website</li><li>Matching digital invitation</li><li>Save the Date</li><li>RSVP dashboard &amp; reminders</li><li>Google Maps + FAQ</li><li>2 revision rounds</li></ul>
-      </div>
-
-      <div class="card">
-        <h3>The Complete Celebration</h3>
-        <p>For couples who want the full guest journey.</p>
-        <ul><li>Everything in Love Story</li><li>Custom domain</li><li>Seating plan</li><li>Guest photo uploads</li><li>Digital programme</li><li>Thank-you card</li><li>Priority support</li></ul>
-      </div>
-
-      <div class="card">
-        <h3>Bespoke Luxe</h3>
-        <p>Fully bespoke creative direction and custom functionality.</p>
-        <ul><li>Custom concept from scratch</li><li>Advanced guest journey</li><li>Custom animations</li><li>Custom integrations</li><li>Dedicated design support</li></ul>
-      </div>
-
-      <div class="card">
-        <h3>Popular add-ons</h3>
-        <p>Keep the core package simple and add only what matters.</p>
-        <ul><li>Custom domain</li><li>Animated video invitation</li><li>Guest photo gallery</li><li>Seating chart</li><li>Extra page / section</li><li>Additional revision round</li></ul>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<div class="sec-head"><h2>Wedding Packages</h2><p>Pick what fits your day—from design-first to full planning support. Clear deliverables, no confusion. 🧾</p></div>
+<div class="packages grid">
+<article class="card"><div class="tag">🌸 Starter</div><div class="price">$399 <span>/ bundle</span></div><p style="color:var(--muted);font-weight:650;margin:10px 0 0">Ideal for couples who already have a venue plan.</p><ul class="list"><li><span class="check">✓</span>Invitation design direction</li><li><span class="check">✓</span>Basic timeline template</li><li><span class="check">✓</span>WhatsApp check-in session</li></ul><a class="btn" href="#book">Choose Starter</a></article>
+<article class="card" style="border-color:rgba(214,168,79,.35);background:rgba(255,255,255,.06)"><div class="tag">✨ Popular</div><div class="price">$899 <span>/ bundle</span></div><p style="color:var(--muted);font-weight:650;margin:10px 0 0">Balanced planning + matched templates for a cohesive look.</p><ul class="list"><li><span class="check">✓</span>Full invite + itinerary set</li><li><span class="check">✓</span>Venue + day-of schedule planning</li><li><span class="check">✓</span>2 revision rounds (theme)</li></ul><a class="btn btn-primary" href="#book">Choose Popular</a></article>
+<article class="card"><div class="tag">👑 Signature</div><div class="price">$1499 <span>/ bundle</span></div><p style="color:var(--muted);font-weight:650;margin:10px 0 0">For couples who want premium support and a polished finish.</p><ul class="list"><li><span class="check">✓</span>Full template suite (multi-page)</li><li><span class="check">✓</span>Detailed rehearsal & day-of plan</li><li><span class="check">✓</span>Priority WhatsApp support</li></ul><a class="btn" href="#book">Choose Signature</a></article>
+</div></div>
 </section>
 
-<section class="section alt" id="how">
-  <div class="container">
-    <div class="kicker">The guest journey</div>
-    <h2>From “We’re engaged” to “See you there.”</h2>
-    <div class="steps">
-      <div class="step"><div class="num">01 / DISCOVER</div><h3>Choose your look</h3><p>Couple explores a collection or requests a bespoke direction.</p></div>
-      <div class="step"><div class="num">02 / BUILD</div><h3>Tell us your story</h3><p>We collect names, dates, photos, venue, wording and guest rules.</p></div>
-      <div class="step"><div class="num">03 / APPROVE</div><h3>Preview &amp; refine</h3><p>Couple reviews the design, makes included edits and approves.</p></div>
-      <div class="step"><div class="num">04 / LAUNCH</div><h3>Share with guests</h3><p>One polished link goes out. RSVPs flow into the couple’s dashboard.</p></div>
-    </div>
-    <div class="testimonial"><p>“It feels like our wedding before the wedding has even happened.”</p><span>— Example customer quote for launch materials</span></div>
-  </div>
+<section class="section" id="templates">
+<div class="container"><div class="sec-head"><h2>Template Collection</h2><p>Pick a style and keep your wedding visuals consistent—from invites to signage to itinerary. 🎨</p></div>
+<div class="templates-grid grid">
+<article class="card"><div class="thumb"><div class="badge">Modern Chic</div><div class="dots"><i></i><i></i><i></i></div></div><p>Bold typography, clean spacing, and elegant accent gradients.</p></article>
+<article class="card"><div class="thumb"><div class="badge">Garden Romance</div><div class="dots"><i></i><i></i><i></i></div></div><p>Soft florals, airy layouts, and warm tones for outdoor vibes.</p></article>
+<article class="card"><div class="thumb"><div class="badge">Classic Luxury</div><div class="dots"><i></i><i></i><i></i></div></div><p>Premium look with timeless spacing and refined details.</p></article>
+</div></div>
 </section>
 
-<section class="section" id="faq">
-  <div class="container">
-    <div class="kicker">FAQ</div>
-    <h2>Good questions. Clear answers.</h2>
-    <div class="faq-grid">
-      <div class="card"><h3>Do guests need an app?</h3><p>No. The intended guest journey is browser-first: tap the link, read the details and RSVP.</p></div>
-      <div class="card"><h3>Can we send it on WhatsApp?</h3><p>Yes. The invitation and website link can be shared directly through WhatsApp, text or other channels.</p></div>
-      <div class="card"><h3>Can each guest receive a personal invite?</h3><p>Yes. Personalised guest links can be offered as an add-on for segmented guest lists.</p></div>
-      <div class="card"><h3>Can our website include our schedule?</h3><p>Yes. Add ceremony, reception, photos, dress code, directions, FAQs and other guest information.</p></div>
-      <div class="card"><h3>Can we use our own photos?</h3><p>Yes. Your imagery is one of the main ways the experience becomes personal to your story.</p></div>
-      <div class="card"><h3>Can we change details later?</h3><p>Website content can be structured so important wedding information can be updated as plans evolve.</p></div>
-    </div>
-  </div>
-</section>
+<section class="section" id="journey"><div class="container"><div class="sec-head"><h2>Customer Journey</h2><p>Four simple steps from first message to “We’re ready!” 🎉</p></div><div class="journey grid">
+<article class="card step"><div class="num">1</div><h3>Message on WhatsApp</h3><p>Share your date, guest count, and preferred style.</p></article>
+<article class="card step"><div class="num">2</div><h3>We recommend a package</h3><p>Match your needs to the right wedding plan.</p></article>
+<article class="card step"><div class="num">3</div><h3>Choose templates</h3><p>Select your collection—modern, garden, or luxury.</p></article>
+<article class="card step"><div class="num">4</div><h3>Approval & delivery</h3><p>Review revisions, then confirm the final wedding set.</p></article>
+</div></div></section>
 
-<section class="cta" id="start">
-  <div class="container">
-    <h2>Your wedding deserves more than a PDF.</h2>
-    <p>Create a digital invitation experience that feels like you — and makes it easier for guests to say yes, know where to go and stay in the loop.</p>
-    <a class="btn" href="https://wa.me/27000000000">Start on WhatsApp</a>
-  </div>
-</section>
+<section class="section" id="faqs"><div class="container"><div class="sec-head"><h2>FAQs</h2><p>Quick answers for busy couples. If you don’t see yours, message us on WhatsApp. 💬</p></div><div class="faq">
+<div class="faq-item"><button class="faq-q" type="button" data-qa="1"><span>How do I book a package?</span><span class="icon">＋</span></button><div class="faq-a" id="faq-a-1">Use the <strong>WhatsApp CTA</strong>, send your wedding date + guest count, and we’ll recommend the best package.</div></div>
+<div class="faq-item"><button class="faq-q" type="button" data-qa="2"><span>What’s included in each package?</span><span class="icon">＋</span></button><div class="faq-a" id="faq-a-2">Each package includes a curated set of wedding deliverables (templates, timeline support, and revisions). Scroll to <strong>Packages</strong> to compare.</div></div>
+<div class="faq-item"><button class="faq-q" type="button" data-qa="3"><span>Can I request custom wording and names?</span><span class="icon">＋</span></button><div class="faq-a" id="faq-a-3">Yes ✅ You can provide names, venue details, schedule times, and wording preferences.</div></div>
+<div class="faq-item"><button class="faq-q" type="button" data-qa="4"><span>How many revision rounds do we get?</span><span class="icon">＋</span></button><div class="faq-a" id="faq-a-4">It depends on the package tier. The Popular package includes <strong>2 revision rounds</strong>.</div></div>
+<div class="faq-item"><button class="faq-q" type="button" data-qa="5"><span>Do you support last-minute timelines?</span><span class="icon">＋</span></button><div class="faq-a" id="faq-a-5">Yes—message us with your wedding date and we’ll check availability and propose the fastest possible option.</div></div>
+</div></div></section>
 
-<footer>
-  <div class="container foot">
-    <div>
-      <div class="brand">Web.Weddingz</div>
-      <p class="muted">Your love story. Your invitation. Your way.</p>
-    </div>
-    <div class="muted">Launch prototype • Replace WhatsApp number, domain and social handles before publishing.</div>
-  </div>
-</footer>
+<section class="section" id="book"><div class="container"><div class="cta-band"><div><h3>Ready to plan? 💕</h3><p>Send your date + guest count and we’ll recommend the perfect package and template collection.</p></div><div class="cta-actions"><a class="btn btn-primary" id="waMainBtn" href="#" target="_blank" rel="noopener">WhatsApp Us</a><a class="btn" href="#packages">Compare packages</a></div></div></div></section>
+
+<footer class="section" style="padding-top:10px;padding-bottom:46px"><div class="container" style="color:var(--muted);font-weight:700;text-align:center">© <span id="year"></span> WEDDINGS. Crafted with ♥ for unforgettable days.</div></footer>
+</main>
+
+<div class="wa-fab"><div class="wa-hint" id="waHint">Tap to message us on WhatsApp 💬</div><a class="wa-btn" id="waFabBtn" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">☏</a></div>
+
+<script>
+const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+hamburger?.addEventListener('click',()=>{const isOpen=mobileMenu.classList.toggle('open');hamburger.setAttribute('aria-expanded',isOpen?'true':'false')});
+mobileMenu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobileMenu.classList.remove('open')));
+
+const WA_NUMBER="15551234567"; // Replace with your WhatsApp number, country code, no +.
+const defaultMessage="Hi WEDDINGS! I’d like to book. My wedding date is ____ and guest count is ____ . I’m interested in: (Starter / Popular / Signature).";
+function makeWhatsAppLink(message){return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`}
+document.getElementById('waMainBtn').href=makeWhatsAppLink(defaultMessage);
+document.getElementById('waFabBtn').href=makeWhatsAppLink(defaultMessage);
+
+document.querySelectorAll('.faq-q').forEach(btn=>btn.addEventListener('click',()=>{
+  const id=btn.dataset.qa,answer=document.getElementById(`faq-a-${id}`);
+  document.querySelectorAll('.faq-a').forEach(a=>{if(a!==answer)a.classList.remove('open')});
+  const isOpen=answer.classList.contains('open');answer.classList.toggle('open',!isOpen);
+}));
+document.getElementById('year').textContent=new Date().getFullYear();
+
+window.addEventListener('load',()=>{
+  const hint=document.getElementById('waHint');
+  if(innerWidth>980&&hint){setTimeout(()=>hint.style.display='block',1200);setTimeout(()=>hint.style.display='none',6000)}
+});
+</script>
 </body>
-</html>
+</html>'''
+
+html_path = out_dir / "index.html"
+html_path.write_text(html, encoding="utf-8")
+
+print(f"Created: {html_path}")
+print(f"Created: {logo_path}")
+print(f"Original artwork: {out_dir / 'weddings-brand-original.png'}")
