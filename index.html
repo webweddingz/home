@@ -1,22 +1,4 @@
-from PIL import Image
-from pathlib import Path
-import shutil
-
-src = Path("/mnt/data/75d077e6-6b86-465d-b805-41d8987cb45c.png")
-out_dir = Path("/mnt/data/weddings_site")
-out_dir.mkdir(exist_ok=True)
-
-# Create a clean crop around the actual "Web Weddings" logo artwork.
-img = Image.open(src).convert("RGB")
-crop = img.crop((180, 185, 1940, 570))
-logo_path = out_dir / "weddings-logo.png"
-crop.save(logo_path, quality=95)
-
-# The user's supplied image is also kept as the original branding artwork.
-shutil.copy2(src, out_dir / "weddings-brand-original.png")
-
-# Build a revised version of the supplied HTML.
-html = r'''<!doctype html>
+'<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
