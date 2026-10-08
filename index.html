@@ -987,8 +987,7 @@ ul{
 
   display:grid;
 
-  grid-template-columns:
-    repeat(4,1fr);
+  grid-template-columns:repeat(4,1fr);
 
   gap:18px;
 
@@ -1005,7 +1004,7 @@ ul{
 
   background:#fff;
 
-  border:1px solid var(--line);
+  border:1px solid rgba(17,17,17,.08);
 
   border-radius:24px;
 
@@ -1016,6 +1015,71 @@ ul{
     transform .25s ease,
     box-shadow .25s ease,
     border-color .25s ease;
+
+  color:var(--ink);
+}
+
+/* Use the same palette as the Signature Collection */
+.offer-card:nth-child(1),
+.offer-card:nth-child(13){
+  background:linear-gradient(135deg,#1f1d1b,#77675f);
+  color:#fff;
+}
+
+.offer-card:nth-child(2),
+.offer-card:nth-child(14){
+  background:linear-gradient(135deg,#fbf4e8,#d9c2a2);
+  color:var(--ink);
+}
+
+.offer-card:nth-child(3){
+  background:linear-gradient(135deg,#f3e4df,#ba755f);
+  color:var(--ink);
+}
+
+.offer-card:nth-child(4){
+  background:linear-gradient(135deg,#dfe3dc,#89977f);
+  color:var(--ink);
+}
+
+.offer-card:nth-child(5){
+  background:linear-gradient(135deg,#ede9ee,#6f5d73);
+  color:#fff;
+}
+
+.offer-card:nth-child(6){
+  background:linear-gradient(135deg,#ece5d8,#3f5448);
+  color:#fff;
+}
+
+.offer-card:nth-child(7){
+  background:linear-gradient(135deg,#f7f7f4,#b6b7ae);
+  color:var(--ink);
+}
+
+.offer-card:nth-child(8){
+  background:linear-gradient(135deg,#f4e6d3,#8e5d3c);
+  color:#fff;
+}
+
+.offer-card:nth-child(9){
+  background:linear-gradient(135deg,#f1e3e4,#9d4b62);
+  color:#fff;
+}
+
+.offer-card:nth-child(10){
+  background:linear-gradient(135deg,#e8e1d4,#6f6252);
+  color:#fff;
+}
+
+.offer-card:nth-child(11){
+  background:linear-gradient(135deg,#e7efe8,#6f8f76);
+  color:var(--ink);
+}
+
+.offer-card:nth-child(12){
+  background:linear-gradient(135deg,#f0e5d7,#27231f);
+  color:#fff;
 }
 
 .offer-card:hover{
@@ -1023,9 +1087,9 @@ ul{
   transform:translateY(-6px);
 
   box-shadow:
-    0 20px 45px rgba(17,17,17,.10);
+    0 20px 45px rgba(17,17,17,.16);
 
-  border-color:#d8c9bd;
+  border-color:rgba(255,255,255,.45);
 }
 
 .offer-icon{
@@ -1042,14 +1106,13 @@ ul{
 
   border-radius:16px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #f6ece5,
-      #ead7c8
-    );
+  background:rgba(255,255,255,.28);
 
-  color:var(--terra);
+  color:currentColor;
+
+  border:1px solid rgba(255,255,255,.28);
+
+  backdrop-filter:blur(4px);
 }
 
 .offer-icon svg{
@@ -1065,23 +1128,21 @@ ul{
 
   margin:0 0 9px;
 
-  font:
-    700
-    20px / 1.15
-    Georgia,
-    serif;
+  font:700 20px/1.15 Georgia,serif;
+
+  color:inherit;
 }
 
 .offer-card p{
 
   margin:0;
 
-  color:var(--muted);
+  color:inherit;
+
+  opacity:.82;
 
   font-size:14px;
 }
-
-
 /* =========================================================
    FAQ
 ========================================================= */
@@ -1151,6 +1212,8 @@ ul{
 }
 
 
+
+
 /* =========================================================
    CONTACT DETAILS
 ========================================================= */
@@ -1177,8 +1240,6 @@ ul{
 
   opacity:.65;
 }
-
-
 /* =========================================================
    FOOTER
 ========================================================= */
@@ -1231,6 +1292,18 @@ footer .muted{
   .hero-grid{
 
     align-items:start;
+  }
+
+  .package-intro{
+
+    display:block;
+  }
+
+  .package-note{
+
+    text-align:left;
+
+    margin-top:10px;
   }
 
 }
@@ -1354,12 +1427,10 @@ footer .muted{
 
     <nav>
 
+
       <!-- YOUR LOGO -->
 
-      <a
-        href="#top"
-        aria-label="Web.WeddingZ home"
-      >
+      <a href="#top" aria-label="Web.WeddingZ home">
 
         <img
           class="brand-logo"
@@ -1713,7 +1784,7 @@ footer .muted{
 
 <!-- =====================================================
      SIGNATURE COLLECTION
-========================================================= -->
+===================================================== -->
 
 <section
   class="section"
@@ -1742,6 +1813,8 @@ footer .muted{
 
     <div class="templates">
 
+
+      <!-- 01 -->
 
       <div class="template">
 
@@ -1779,6 +1852,8 @@ footer .muted{
 
 
 
+      <!-- 02 -->
+
       <div class="template">
 
         <div class="template-art two">
@@ -1814,6 +1889,8 @@ footer .muted{
       </div>
 
 
+
+      <!-- 03 -->
 
       <div class="template">
 
@@ -1851,6 +1928,8 @@ footer .muted{
 
 
 
+      <!-- 04 -->
+
       <div class="template">
 
         <div class="template-art four">
@@ -1886,6 +1965,8 @@ footer .muted{
       </div>
 
 
+
+      <!-- 05 -->
 
       <div class="template">
 
@@ -1923,6 +2004,8 @@ footer .muted{
 
 
 
+      <!-- 06 -->
+
       <div class="template">
 
         <div class="template-art six">
@@ -1958,6 +2041,8 @@ footer .muted{
       </div>
 
 
+
+      <!-- 07 -->
 
       <div class="template">
 
@@ -1995,6 +2080,8 @@ footer .muted{
 
 
 
+      <!-- 08 -->
+
       <div class="template">
 
         <div class="template-art eight">
@@ -2030,6 +2117,8 @@ footer .muted{
       </div>
 
 
+
+      <!-- 09 -->
 
       <div class="template">
 
@@ -2067,6 +2156,8 @@ footer .muted{
 
 
 
+      <!-- 10 -->
+
       <div class="template">
 
         <div class="template-art ten">
@@ -2103,6 +2194,8 @@ footer .muted{
 
 
 
+      <!-- 11 -->
+
       <div class="template">
 
         <div class="template-art eleven">
@@ -2138,6 +2231,8 @@ footer .muted{
       </div>
 
 
+
+      <!-- 12 -->
 
       <div class="template">
 
@@ -2203,8 +2298,8 @@ footer .muted{
 
 
 <!-- =====================================================
-     PACKAGES / WHAT WE OFFER
-========================================================= -->
+     PACKAGES
+===================================================== -->
 
 <section
   class="section alt"
@@ -2212,7 +2307,6 @@ footer .muted{
 >
 
   <div class="container">
-
 
     <div class="offer-intro">
 
@@ -2239,491 +2333,89 @@ footer .muted{
 
     <div class="offer-grid">
 
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <rect
-              x="4"
-              y="3"
-              width="16"
-              height="18"
-              rx="2"
-            />
-
-            <path d="M8 7h8M8 11h8M8 15h5"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Custom digital invitation
-        </h3>
-
-        <p>
-          A beautifully designed invitation made around
-          your celebration.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></div>
+        <h3>Custom digital invitation</h3>
+        <p>A beautifully designed invitation made around your celebration.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M13 5h6v6"/>
-
-            <path d="M19 5l-8 8"/>
-
-            <path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Share-ready invitation link
-        </h3>
-
-        <p>
-          A simple link that is ready to send
-          to your guests.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 5h6v6"/><path d="M19 5l-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></div>
+        <h3>Share-ready invitation link</h3>
+        <p>A simple link that is ready to send to your guests.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M7 3v4M17 3v4M4 9h16"/>
-
-            <rect
-              x="4"
-              y="5"
-              width="16"
-              height="15"
-              rx="2"
-            />
-
-            <path d="M8 13h4M8 16h7"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Basic RSVP form
-        </h3>
-
-        <p>
-          Give guests an easy way to confirm
-          whether they are attending.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 3v4M17 3v4M4 9h16"/><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 13h4M8 16h7"/></svg></div>
+        <h3>Basic RSVP form</h3>
+        <p>Give guests an easy way to confirm whether they are attending.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <circle
-              cx="12"
-              cy="8"
-              r="3"
-            />
-
-            <path d="M5 20a7 7 0 0 1 14 0"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          RSVP + guest details
-        </h3>
-
-        <p>
-          Capture the guest information
-          you need in one place.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="3"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></div>
+        <h3>RSVP + guest details</h3>
+        <p>Capture the guest information you need in one place.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M4 5h16v14H4z"/>
-
-            <path d="M7 8h10M7 12h7M7 16h5"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Story, schedule, venue &amp; dress code
-        </h3>
-
-        <p>
-          Keep the important wedding information
-          together for every guest.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M7 8h10M7 12h7M7 16h5"/></svg></div>
+        <h3>Story, schedule, venue &amp; dress code</h3>
+        <p>Keep the important wedding information together for every guest.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <rect
-              x="3"
-              y="4"
-              width="18"
-              height="16"
-              rx="2"
-            />
-
-            <circle
-              cx="8"
-              cy="9"
-              r="1.5"
-            />
-
-            <path d="M4 17l5-5 4 4 2-2 5 5"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Photo gallery
-        </h3>
-
-        <p>
-          Share the photographs that tell
-          your story beautifully.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="M4 17l5-5 4 4 2-2 5 5"/></svg></div>
+        <h3>Photo gallery</h3>
+        <p>Share the photographs that tell your story beautifully.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M12 3v18M5 8l7-5 7 5M5 16l7 5 7-5"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Save the Date
-        </h3>
-
-        <p>
-          Give guests an early, beautifully branded
-          reminder of your day.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v18M5 8l7-5 7 5M5 16l7 5 7-5"/></svg></div>
+        <h3>Save the Date</h3>
+        <p>Give guests an early, beautifully branded reminder of your day.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z"/>
-
-            <circle
-              cx="12"
-              cy="10"
-              r="2"
-            />
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Google Maps + FAQ
-        </h3>
-
-        <p>
-          Help guests find you and get answers
-          without the back-and-forth.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z"/><circle cx="12" cy="10" r="2"/></svg></div>
+        <h3>Google Maps + FAQ</h3>
+        <p>Help guests find you and get answers without the back-and-forth.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M4 6h16v12H4z"/>
-
-            <path d="M8 6v12M16 6v12M4 10h16"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Your Love Story
-        </h3>
-
-        <p>
-          Turn your journey together into a meaningful
-          part of the experience.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M8 6v12M16 6v12M4 10h16"/></svg></div>
+        <h3>Your Love Story</h3>
+        <p>Turn your journey together into a meaningful part of the experience.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M4 6h16v13H4z"/>
-
-            <path d="M8 6v13M16 6v13M4 10h16M4 15h16"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Seating plan
-        </h3>
-
-        <p>
-          Show guests where they will be seated
-          with a clean digital layout.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16v13H4z"/><path d="M8 6v13M16 6v13M4 10h16M4 15h16"/></svg></div>
+        <h3>Seating plan</h3>
+        <p>Show guests where they will be seated with a clean digital layout.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"/>
-
-            <path d="M14 14h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          QR code
-        </h3>
-
-        <p>
-          Make your invitation, RSVP or gallery
-          easy to access in the real world.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"/><path d="M14 14h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z"/></svg></div>
+        <h3>QR code</h3>
+        <p>Make your invitation, RSVP or gallery easy to access in the real world.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M4 6h16v12H4z"/>
-
-            <circle
-              cx="9"
-              cy="10"
-              r="2"
-            />
-
-            <path d="M5 16l4-4 3 3 2-2 5 3"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Guest photo uploads
-        </h3>
-
-        <p>
-          Let guests contribute moments
-          from your celebration.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16v12H4z"/><circle cx="9" cy="10" r="2"/><path d="M5 16l4-4 3 3 2-2 5 3"/></svg></div>
+        <h3>Guest photo uploads</h3>
+        <p>Let guests contribute moments from your celebration.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/>
-
-            <path d="M8 7h8M8 11h8M8 15h5"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Digital programme
-        </h3>
-
-        <p>
-          Give guests the order of events
-          and all the details they need on the day.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></div>
+        <h3>Digital programme</h3>
+        <p>Give guests the order of events and all the details they need on the day.</p>
       </div>
 
-
-
       <div class="offer-card">
-
-        <div class="offer-icon">
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.6-7 10-7 10Z"/>
-
-          </svg>
-
-        </div>
-
-        <h3>
-          Thank-you card
-        </h3>
-
-        <p>
-          Finish the guest experience with
-          a polished digital thank-you.
-        </p>
-
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.6-7 10-7 10Z"/></svg></div>
+        <h3>Thank-you card</h3>
+        <p>Finish the guest experience with a polished digital thank-you.</p>
       </div>
-
 
     </div>
 
@@ -2732,10 +2424,9 @@ footer .muted{
 </section>
 
 
-
 <!-- =====================================================
      GUEST JOURNEY
-========================================================= -->
+===================================================== -->
 
 <section
   class="section"
@@ -2857,7 +2548,7 @@ footer .muted{
 
 <!-- =====================================================
      FAQ
-========================================================= -->
+===================================================== -->
 
 <section
   class="section alt"
@@ -2977,7 +2668,7 @@ footer .muted{
 
 <!-- =====================================================
      FINAL CTA
-========================================================= -->
+===================================================== -->
 
 <section
   class="cta"
@@ -2995,12 +2686,15 @@ footer .muted{
 
     <p>
       Create a digital invitation experience
-      that feels like you
+      that feels like you 
       That will makes it easier
-      for guests to say YES
+      for guests to say YES 
+      
       and stay in the loop.
     </p>
 
+
+    <!-- REPLACE THIS NUMBER WITH YOUR REAL WHATSAPP NUMBER -->
 
     <a
       class="btn"
@@ -3018,7 +2712,7 @@ footer .muted{
 
 <!-- =====================================================
      FOOTER
-========================================================= -->
+===================================================== -->
 
 <footer>
 
@@ -3052,22 +2746,14 @@ footer .muted{
 
     <div class="contact-details">
 
-      <strong>
-        Contact Web.Weddingz
-      </strong>
+      <strong>Contact Web.Weddingz</strong>
 
-      <a
-        href="https://wa.me/27500512260"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="https://wa.me/27500512260" target="_blank" rel="noopener noreferrer">
         WhatsApp: +27 50 051 2260
       </a>
 
-      <a
-        href="mailto:hello@web.weddingz"
-      >
-        Email: hello@web.weddingz
+      <a href="mailto:hello@web.weddingz">
+        Email:web.weddingz@gmail.com
       </a>
 
     </div>
@@ -3075,7 +2761,7 @@ footer .muted{
 
     <div class="muted">
 
-      Designed by NQOBILE &amp; SEBINA
+     Designed by NQOBILE & SEBINA
 
     </div>
 
