@@ -174,6 +174,60 @@ nav{
   opacity:.55;
 }
 
+.menu-toggle{
+
+  display:none;
+
+  border:0;
+
+  background:transparent;
+
+  color:var(--ink);
+
+  cursor:pointer;
+
+  padding:8px;
+
+}
+
+.menu-toggle svg{
+
+  width:28px;
+
+  height:28px;
+
+  display:block;
+
+}
+
+.mobile-nav{
+
+  display:none;
+
+  padding:0 0 18px;
+
+}
+
+.mobile-nav.open{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:14px;
+
+}
+
+.mobile-nav a{
+
+  font-size:15px;
+
+  padding:8px 0;
+
+  border-bottom:1px solid var(--line);
+
+}
+
 
 /* =========================================================
    BUTTONS
@@ -1152,6 +1206,8 @@ ul{
 
   font-size:14px;
 }
+
+
 /* =========================================================
    FAQ
 ========================================================= */
@@ -1221,8 +1277,6 @@ ul{
 }
 
 
-
-
 /* =========================================================
    CONTACT DETAILS
 ========================================================= */
@@ -1249,6 +1303,8 @@ ul{
 
   opacity:.65;
 }
+
+
 /* =========================================================
    FOOTER
 ========================================================= */
@@ -1303,16 +1359,14 @@ footer .muted{
     align-items:start;
   }
 
-  .package-intro{
+  .offer-intro{
 
     display:block;
   }
 
-  .package-note{
+  .offer-intro .lead{
 
-    text-align:left;
-
-    margin-top:10px;
+    margin-bottom:0;
   }
 
 }
@@ -1333,6 +1387,11 @@ footer .muted{
   .navlinks{
 
     display:none;
+  }
+
+  .menu-toggle{
+
+    display:block;
   }
 
   nav{
@@ -1445,6 +1504,8 @@ footer .muted{
           class="brand-logo"
           src="assets/1.png"
           alt="Web.WeddingZ"
+          loading="eager"
+          decoding="async"
         />
 
       </a>
@@ -1478,7 +1539,39 @@ footer .muted{
         Create yours
       </a>
 
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+
     </nav>
+
+    <div class="mobile-nav" id="mobile-nav">
+
+      <a href="#designs">
+        Designs
+      </a>
+
+      <a href="#packages">
+        Packages
+      </a>
+
+      <a href="#how">
+        How it works
+      </a>
+
+      <a href="#faq">
+        FAQ
+      </a>
+
+    </div>
 
   </div>
 
@@ -1503,6 +1596,8 @@ footer .muted{
       <img
         src="assets/2.png"
         alt="Web.Weddingz luxury wedding brand logo with gold ring and diamond"
+        loading="eager"
+        decoding="async"
       >
 
     </div>
@@ -1745,6 +1840,8 @@ footer .muted{
         <img
           src="assets/3.png"
           alt="Web.Weddingz elegant gold ring and wedding branding"
+          loading="lazy"
+          decoding="async"
         >
 
       </div>
@@ -1858,8 +1955,6 @@ footer .muted{
         </div>
 
       </div>
-
-
 
       <!-- 02 -->
 
@@ -2305,7 +2400,6 @@ footer .muted{
 </section>
 
 
-
 <!-- =====================================================
      PACKAGES
 ===================================================== -->
@@ -2338,7 +2432,6 @@ footer .muted{
       </div>
 
     </div>
-
 
     <div class="offer-grid">
 
@@ -2431,6 +2524,7 @@ footer .muted{
   </div>
 
 </section>
+
 
 
 <!-- =====================================================
@@ -2695,11 +2789,8 @@ footer .muted{
 
     <p>
       Create a digital invitation experience
-      that feels like you 
-      That will makes it easier
-      for guests to say YES 
-      
-      and stay in the loop.
+      that feels like you — making it easier
+      for guests to say yes and stay in the loop.
     </p>
 
 
@@ -2739,6 +2830,8 @@ footer .muted{
           class="brand-logo"
           src="assets/1.png"
           alt="Web.WeddingZ"
+          loading="lazy"
+          decoding="async"
         />
 
       </a>
@@ -2761,8 +2854,8 @@ footer .muted{
         WhatsApp: +27 50 051 2260
       </a>
 
-      <a href="mailto:hello@web.weddingz">
-        Email:web.weddingz@gmail.com
+      <a href="mailto:web.weddingz@gmail.com">
+        Email: web.weddingz@gmail.com
       </a>
 
     </div>
@@ -2778,6 +2871,30 @@ footer .muted{
   </div>
 
 </footer>
+
+
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileNav = document.querySelector('#mobile-nav');
+
+  menuToggle.addEventListener('click', function () {
+    const isOpen = mobileNav.classList.toggle('open');
+
+    menuToggle.setAttribute('aria-expanded', isOpen);
+    menuToggle.setAttribute(
+      'aria-label',
+      isOpen ? 'Close navigation menu' : 'Open navigation menu'
+    );
+  });
+
+  document.querySelectorAll('.mobile-nav a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      mobileNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open navigation menu');
+    });
+  });
+</script>
 
 
 </body>
